@@ -65,7 +65,7 @@ for ChannelIdx = 1:nChannels
     end
 
     % keep only the highest correlation values at each time point
-    [Correlations(ChannelIdx, :), MaxCorrIndexes] = max(R_neighbors);
+    [Correlations(ChannelIdx, :), MaxCorrIndexes] = max(R_neighbors, [], 1);
     MostCorrCh(ChannelIdx, :) = NeighborChannels(MaxCorrIndexes);
 
     % using the same highly correlated channel at each time point, select
