@@ -13,7 +13,7 @@ arguments
     nNewEpochs = [];
 end
 
-disp('Resampling matrix (inefficient code)')
+% disp('Resampling matrix (inefficient code)')
 
 nChannels = size(Matrix, 1);
 
