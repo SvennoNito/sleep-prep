@@ -4,6 +4,11 @@ arguments
     MergeType = 'or';
 end
 
+if isstruct(ArtefactsCell)
+    fields = fieldnames(ArtefactsCell);
+    ArtefactsCell = struct2cell(ArtefactsCell);
+end
+
 AllArtefacts = false(size(ArtefactsCell{1}));
 for ArtefactIdx = 1:numel(ArtefactsCell)
     switch MergeType
