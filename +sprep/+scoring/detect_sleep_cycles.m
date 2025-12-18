@@ -14,8 +14,7 @@ end
 
 % ignore n1 and wake by assigning them to the previous stage
 Scoring(1) = opts.stagemap('N2'); % assign first score to NREM sleep so that the next code can reassign wake and n1 appropriately
-Scoring = sprep.scoring.reassign_n1(Scoring, opts.stagemap('N2'));
-Scoring = sprep.scoring.reassign_n1(Scoring, opts.stagemap('W'));
+Scoring = sprep.scoring.reassign_n1(Scoring, opts.stagemap('N1'));
 Scoring(Scoring<0) = -1;
 
 % NREM bouts
