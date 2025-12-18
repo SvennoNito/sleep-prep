@@ -16,7 +16,6 @@ for ChannelIdx = 1:nChannels
     Signal = EEG.data(ChannelIdx, :);
     Cuts = abs(diff([Signal, 0])) > DiffVoltageThreshold | abs(Signal) > VoltageThreshold;
     Artefacts(ChannelIdx, :) = sprep.utils.pad_windows(Cuts, Padding*fs);
-
 end
 
 
