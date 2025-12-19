@@ -4,16 +4,17 @@ arguments
     RangeMuscle = [20 45];
     MedianMultiplierThresholds = [20 100]; % x times the median for a burst threshold
     SmoothWindow = 0.2; % seconds
-    Artefacts = logical(zeros(size(EEG.data)))
+    Artefacts = logical(zeros(size(EEG.data)));
 end
 
-disp('Detecting muscle artefacts')
 
 % EEG = pop_reref(EEG, []);
 
 % get data into bands
+disp('Filtering in muscle frequency range')
 MuscleEEG = sprep.eeg.timeband(EEG, RangeMuscle);
 
+disp('Smoothing signal')
 SmoothData = sprep.eeg.smooth(MuscleEEG, SmoothWindow, 'mean');
 
 ThresholdData = SmoothData.data;
@@ -21,7 +22,18 @@ ThresholdData(Artefacts) = nan;
 
 Thresholds = MedianMultiplierThresholds.*median(ThresholdData, 'all', 'omitmissing');
 
-Artefacts = sprep.utils.double_threshold(SmoothData.data, Thresholds(1), Thresholds(2));
+% Artefacts = sprep.utils.double_threshold(SmoothData.data, Thresholds(1), Thresholds(2))
+disp('Detecting muscle artefacts')
+Artefacts = sprep.utils.double_threshold_vectorized(SmoothData.data, Thresholds(1), Thresholds(2));
+
+
+
+
+
+
+
+
+
 
 % %%
 % figure('Position', [50 50 500 250], 'color', 'w');

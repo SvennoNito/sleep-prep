@@ -43,13 +43,13 @@ for ClusterIdx = 1:nClusters
     end
 
     EEGMini = sprep.eeg.select(EEG, BadPoints); % faster
-    EEGMini = pop_select(EEGMini, 'nochannel', find(BadChannels));
+    % EEGMini = pop_select(EEGMini, 'nochannel', find(BadChannels));
 
     %%%
 
     % interpolate only that subset of data back to the original number of
     % channels
-    EEGMini = pop_interp(EEGMini, EEG.chanlocs);
+    EEGMini = pop_interp(EEGMini, find(BadChannels), 'spherical');
 
     % restore the data to original matrix
     EEG.data(:, BadPoints) = EEGMini.data;
